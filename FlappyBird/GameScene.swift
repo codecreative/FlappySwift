@@ -8,6 +8,7 @@
 
 import SpriteKit
 
+
 class GameScene: SKScene {
     var bird = SKSpriteNode()
     var skyColor = SKColor()
@@ -15,6 +16,10 @@ class GameScene: SKScene {
     var pipeTextureUp = SKTexture()
     var pipeTextureDown = SKTexture()
     var movePipesAndRemove = SKAction()
+    var sparkles = SKTexture()
+    var burstEmitter = SKEmitterNode()
+    
+    
     
     override func didMoveToView(view: SKView) {
         // setup physics
@@ -105,6 +110,23 @@ class GameScene: SKScene {
         self.addChild(ground)
         
         
+        
+
+        sparkles = SKTexture(imageNamed: "bird-01")
+        burstEmitter = SKEmitterNode()
+        burstEmitter.particleTexture = sparkles
+        burstEmitter.position = CGPointMake(200, 200)
+        burstEmitter.particleBirthRate = 10
+        burstEmitter.numParticlesToEmit = 200;
+        burstEmitter.particleLifetime = 3.0
+        burstEmitter.particleSpeed = 100.0
+        burstEmitter.xAcceleration = 100
+        burstEmitter.yAcceleration = 100
+        self.addChild(burstEmitter)
+        
+        
+        
+        
     }
     
     func spawnPipes() {
@@ -144,6 +166,8 @@ class GameScene: SKScene {
             
             bird.physicsBody.velocity = CGVectorMake(0, 0)
             bird.physicsBody.applyImpulse(CGVectorMake(0, 30))
+            
+            
             
         }
     }
